@@ -20,7 +20,7 @@ const Footer = () => {
                     <p>Subscribe to stay tuned for new product and latest updates. Let’s do it!</p>
                     <div className='flex'>
                         <input type="email" name="email" id="email" required placeholder='Enter your email address' className='w-full px-4 py-2 rounded-l-md text-black' />
-                        <button  className='bg-primary px-6 py-2 rounded-r-md  hover:bg-secondary'>Subscribe</button>
+                        <button className='bg-primary px-6 py-2 rounded-r-md  hover:bg-secondary'>Subscribe</button>
                     </div>
                 </div>
             </div>
@@ -33,8 +33,11 @@ const Footer = () => {
                         <li><a href="#salesandrefunds" className="hover:text-primary">Sales and Refunds</a></li>
                         <li><a href="#legal" className="hover:text-primary">Legal</a></li>
                     </ul>
+
                 </div>
-                <div className='flex justify-center items-center gap-16'>
+
+                <div className=' flex flex-col'>
+                    <div className='flex justify-center items-center gap-16'>
                     <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary">
                         <FaFacebook className='size-8' />
                     </a>
@@ -44,6 +47,9 @@ const Footer = () => {
                     <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary">
                         <FaTwitter className='size-8' />
                     </a>
+                    </div>
+                    <p className='pt-4 text-xs'>Designed and developed by <a href='https://www.linkedin.com/in/azhar-ali-dar-48b11515b/' target="_blank" className='hover:text-primary cursor-pointer'>Azhar Ali Dar</a></p>
+
                 </div>
             </div>
         </footer>

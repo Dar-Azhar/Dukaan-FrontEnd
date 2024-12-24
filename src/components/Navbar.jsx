@@ -7,6 +7,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
 import avatar from '../assets/avatar.png'
+import { useSelector } from 'react-redux';
 
 const dropDownOptions = [
     { name: 'Dashboard', href: "/dashboard" },
@@ -15,7 +16,9 @@ const dropDownOptions = [
     { name: 'Check Out', href: "/checkout" },
 ]
 
+
 export const Navbar = () => {
+    const cartItems = useSelector((state)=>state.cart.cartItems)
     const currentUser = false;
     const [isDropDownOpen, setIsDropDownOpen] = useState(false)
     return (
@@ -73,7 +76,7 @@ export const Navbar = () => {
 
                     <Link to='/cart' className='bg-primary  sm:px-6 p-1 flex items-center rounded-lg' >
                         <AiOutlineShoppingCart className='size-6' />
-                        <span className='text-sm font-semibold sm:ml-1'>0</span>
+                        <span className='text-sm font-semibold sm:ml-1'>{cartItems.length}</span>
                     </Link>
                 </div>
             </nav>
