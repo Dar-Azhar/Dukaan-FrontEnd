@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { HiMiniBars3CenterLeft } from "react-icons/hi2";
 import { IoIosSearch } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa6";
@@ -8,6 +8,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 
 import avatar from '../assets/avatar.png'
 import { useSelector } from 'react-redux';
+import { useAuth } from '../context/AuthContext';
 
 const dropDownOptions = [
     { name: 'Dashboard', href: "/dashboard" },
@@ -16,11 +17,18 @@ const dropDownOptions = [
     { name: 'Check Out', href: "/checkout" },
 ]
 
-
 export const Navbar = () => {
-    const cartItems = useSelector((state)=>state.cart.cartItems)
-    const currentUser = false;
+    const cartItems = useSelector((state) => state.cart.cartItems)
     const [isDropDownOpen, setIsDropDownOpen] = useState(false)
+
+    const { currentUser, logoutUser} = useAuth()
+    const navigate = useNavigate()
+
+    const handleLogOut = () => {
+        logoutUser()
+        navigate('/')
+
+    }
     return (
         <header className='max-w-screen-2xl mx-auto px-6 lg:px-12 py-6'>
             <nav className='flex justify-between items-center'>
@@ -57,15 +65,12 @@ export const Navbar = () => {
                                                 </Link>
                                             </li>
                                         ))}
-                                        {/* Uncomment if needed
-            <li>
-                <button
-                    onClick={handleLogOut}
-                    className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
-                    Logout
-                </button>
-            </li>
-            */}
+                                        <li>
+                                            <button
+                                                onClick={handleLogOut}
+                                                className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Logout</button>
+                                        </li>
+
                                     </ul>
                                 </div>
                             )}

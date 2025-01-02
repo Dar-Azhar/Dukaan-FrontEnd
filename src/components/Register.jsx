@@ -3,6 +3,7 @@ import book from "../assets/Login_Book.png";
 import { Link } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
     const [message, setMessage] = useState('');
@@ -12,20 +13,34 @@ const Register = () => {
         watch,
         formState: { errors },
     } = useForm();
-    const password = watch("password"); 
+    const password = watch("password");
+    const {registerUser, signInWithGoogle} = useAuth();
 
-    const onSubmit = (data) => {
+    const onSubmit = async(data) => {
         if (data.password !== data.confirmPassword) {
             setMessage("Passwords do not match");
             return;
         }
-        console.log(data);
-        setMessage(""); 
+        try {
+            await registerUser(data.email, data.password);
+            alert("User registered successfully!")
+        } catch (error) {
+            setMessage("Please provide a valid email and password")
+            console.error(error)
+        }
+
     };
 
-    const handleGoogleSignIn = () => {
-        console.log("Google Sign-In clicked");
-    };
+    const handleGoogleSignIn = async () => {
+        try {
+            await signInWithGoogle();
+            alert("Login successful!");
+            navigate("/")
+        } catch (error) {
+            alert("Google sign in failed!")
+            console.error(error)
+        }
+    }
 
     return (
         <div className="flex justify-between items-center">

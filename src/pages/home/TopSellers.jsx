@@ -4,6 +4,7 @@ import BookCard from '../books/BookCard'
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
 import { Pagination, Navigation } from 'swiper/modules';
+import { useGetAllBooksQuery } from '../../redux/features/books/booksAPI';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -14,17 +15,20 @@ import 'swiper/css/pagination';
 
 const categories = ["Choose a genre", "Business", "Fiction", "Horror", "Adventure"]
 export const TopSellers = () => {
-    const [books, setBooks] = useState([])
+    // const [books, setBooks] = useState([])
     const [selectedCategory, setSelectedCategory] = useState("Choose a genre")
 
-    useEffect(() => {
-        fetch('Books.json')
-            .then((res) => res.json())
-            .then((data) => setBooks(data))
-            .catch((error) => {
-                console.error('failed to fetch books', error)
-            })
-    }, [])
+    // useEffect(() => {
+    //     fetch('Books.json')
+    //         .then((res) => res.json())
+    //         .then((data) => setBooks(data))
+    //         .catch((error) => {
+    //             console.error('failed to fetch books', error)
+    //         })
+    // }, [])
+
+    const { data: allbooks } = useGetAllBooksQuery()
+    const books = allbooks?.data || [];
     const filteredBooks = selectedCategory === "Choose a genre" ? books : books.filter((book) => book.category === selectedCategory.toLocaleLowerCase())
     return (
         <div className=' mt-10'>
@@ -63,7 +67,7 @@ export const TopSellers = () => {
                         spaceBetween: 50,
                     }
                 }}
-                modules={[Pagination,Navigation]}
+                modules={[Pagination, Navigation]}
                 className="mySwiper"
             >
                 {

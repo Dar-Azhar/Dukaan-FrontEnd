@@ -5,6 +5,16 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import CartPage from "../pages/books/CartPage";
 import CheckOut from "../pages/books/CheckOut";
+import SingleBook from "../pages/books/SingleBook";
+import PrivateRoute from "./PrivateRoute";
+import OrderPage from "../pages/books/orderPage";
+import AdminLogin from "../components/AdminLogin";
+import AdminRoute from "./AdminRoute";
+import DashboardLayout from "../pages/dashboard/DashboardLayout";
+import Dashboard from "../pages/dashboard/Dashboard";
+import AddBook from "../pages/dashboard/addBook/addBook";
+import EditBook from "../pages/dashboard/editBook/editBook";
+import ManageBooks from "../pages/dashboard/manageBook/ManageBooks";
 
 
 const router = createBrowserRouter([
@@ -15,26 +25,48 @@ const router = createBrowserRouter([
             { path: "/login", element: <Login /> },
             { path: "/register", element: <Register /> },
             { path: "/cart", element: <CartPage /> },
-            { path: "/checkout", element: <CheckOut /> },
-            { path: "/orders", element: <h1>Orders</h1> },
+            { path: "/checkout", element: <PrivateRoute><CheckOut /></PrivateRoute> },
+            { path: "/orders", element: <PrivateRoute><OrderPage /></PrivateRoute> },
             { path: "/about", element: <h1>About</h1> },
+            { path: "/books/:id", element: <SingleBook /> },
+
+
+        ]
+    },
+
+    {
+        path: "/admin",
+        element: <AdminLogin />
+    },
+
+    {
+        path: "/dashboard",
+        element: <AdminRoute>
+            <DashboardLayout />
+        </AdminRoute>,
+        children: [
             {
-                path: "/profile",
-                children: [
-                    { path: '', element: <h1>Profile</h1> },
-                    {
-                        path: 'settings',
-                        children: [
-                            { path: "", element: <h1>settings</h1> },
-                            { path: "change-password", element: <h1>Change Password</h1> },
-                            { path: "edit-profile", element: <h1>Edit Profile</h1> },
-                        ]
-
-                    },
-                    { path: 'dashboard', element: <h1>Dashboard</h1> },
-                ]
+                path: "",
+                element: <AdminRoute><Dashboard /></AdminRoute>
+            },
+            {
+                path: "add-new-book",
+                element: <AdminRoute>
+                    <AddBook />
+                </AdminRoute>
+            },
+            {
+                path: "edit-book/:id",
+                element: <AdminRoute>
+                    <EditBook />
+                </AdminRoute>
+            },
+            {
+                path: "manage-books",
+                element: <AdminRoute>
+                    <ManageBooks />
+                </AdminRoute>
             }
-
         ]
     }
 ])

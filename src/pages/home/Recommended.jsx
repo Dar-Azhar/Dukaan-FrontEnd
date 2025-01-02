@@ -9,17 +9,20 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import BookCard from '../books/BookCard';
+import { useGetAllBooksQuery } from '../../redux/features/books/booksAPI';
 const Recommended = () => {
-    const [books, setBooks] = useState([])
+    // const [books, setBooks] = useState([])
 
-    useEffect(() => {
-        fetch('Books.json')
-            .then((res) => res.json())
-            .then((data) => setBooks(data))
-            .catch((error) => {
-                console.error('failed to fetch books', error)
-            })
-    }, [])
+    // useEffect(() => {
+    //     fetch('Books.json')
+    //         .then((res) => res.json())
+    //         .then((data) => setBooks(data))
+    //         .catch((error) => {
+    //             console.error('failed to fetch books', error)
+    //         })
+    // }, [])
+     const {data : allBooks} = useGetAllBooksQuery()
+    const books = allBooks?.data || [];
     return (
         <div className='mt-32'>
             <h2 className='text-3xl font-semibold text-secondary mb-10'>Recommended for you </h2>
