@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup,signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import { createContext, useState, useEffect, useContext } from 'react';
 import { auth } from '../firebase/firebase.config';
 
@@ -7,7 +7,6 @@ const AuthContext = createContext();
 export const useAuth = () => {
     return useContext(AuthContext);
 };
-const googleProvider = new GoogleAuthProvider();
 
 export const AuthProvider = ({ children }) => {
 
@@ -26,9 +25,24 @@ export const AuthProvider = ({ children }) => {
 
     //signIn with google
     const signInWithGoogle = async () => {
+        const googleProvider = new GoogleAuthProvider();
+        try {
+            const result = await signInWithPopup(auth, googleProvider);
+            // console.log("Google Sign-In successful!", result);
+        } catch (error) {
+            console.error("Google Sign-in failed!", error);
+            if (error.code === 'auth/cancelled-popup-request') {
+                alert("Google sign-in cancelled. Please close any other popups and try again.");
+            } else if (error.code === 'auth/popup-blocked') {
+                alert("Popup blocked. Please enable popups for this site and try again.");
+            } else if (error.message.includes("Cross-Origin")) {
+                alert("Cross-Origin error occurred. Please ensure your browser settings allow popups for this site.");
+            } else {
+                alert("An unknown error occurred during Google sign-in.");
+            }
+        }
+    };
 
-        return await signInWithPopup(auth, googleProvider)
-    }
 
     // const signInWithGoogle = async () => {
     //     try {
