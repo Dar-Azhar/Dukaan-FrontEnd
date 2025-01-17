@@ -1,5 +1,7 @@
+const local = 'http://localhost:8080'
+const live = "https://dukaan-backend-spi.vercel.app"
 const getBaseUrl = () => {
-    return "https://dukaan-backend-spi.vercel.app"
+    return live
 }
 
 export default getBaseUrl;

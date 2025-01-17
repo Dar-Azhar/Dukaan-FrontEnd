@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import book from "../assets/Login_Book.png";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
+    const navigate = useNavigate()
     const [message, setMessage] = useState('');
     const {
         register,
