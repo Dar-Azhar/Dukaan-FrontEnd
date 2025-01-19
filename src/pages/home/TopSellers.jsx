@@ -29,7 +29,6 @@ export const TopSellers = () => {
 
     const { data: allbooks } = useGetAllBooksQuery()
     const books = allbooks?.data || [];
-    console.log(books);
     const filteredBooks = selectedCategory === "Choose a genre" ? books : books.filter((book) => book.category === selectedCategory.toLocaleLowerCase())
     return (
         <div className=' mt-10'>
